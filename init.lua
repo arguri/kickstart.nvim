@@ -91,7 +91,16 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
+
+vim.opt.relativenumber = true
+vim.opt.wrap = false
+vim.opt.hlsearch = false
+vim.incsearch = true
+vim.opt.termguicolors = true
+vim.opt.scrolloff = 8
+vim.opt.signcolumn = 'yes'
+vim.opt.colorcolumn = '80'
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -189,6 +198,11 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+vim.cmd 'set expandtab'
+vim.cmd 'set tabstop=2'
+vim.cmd 'set softtabstop=2'
+vim.cmd 'set shiftwidth=2'
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -263,6 +277,11 @@ require('lazy').setup({
         changedelete = { text = '~' },
       },
     },
+  },
+  {
+    'catppuccin/nvim',
+    name = 'catppuccin',
+    priority = 1000,
   },
 
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
@@ -765,7 +784,35 @@ require('lazy').setup({
       },
     },
   },
-
+  {
+    'mrcjkb/haskell-tools.nvim',
+    version = '^4', -- Recommended
+    lazy = false, -- This plugin is already lazy
+  },
+  {
+    'nvim-neotest/neotest',
+    dependencies = {
+      -- ...,
+      'mrcjkb/neotest-haskell',
+      'nvim-lua/plenary.nvim',
+    },
+  },
+  {
+    'mrcjkb/haskell-snippets.nvim',
+  },
+  {
+    'luc-tielen/telescope_hoogle',
+  },
+  {
+    'mrcjkb/telescope-manix',
+  },
+  {
+    'mfussenegger/nvim-dap',
+  },
+  { 'ThePrimeagen/harpoon' },
+  { 'ThePrimeagen/vim-be-good' },
+  { 'nvim-tree/nvim-tree.lua' },
+  { 'NeogitOrg/neogit' },
   { -- Autocompletion
     'hrsh7th/nvim-cmp',
     event = 'InsertEnter',
@@ -902,7 +949,7 @@ require('lazy').setup({
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
+      vim.cmd.colorscheme 'tokyonight-storm'
     end,
   },
 
@@ -946,13 +993,16 @@ require('lazy').setup({
       --  Check out: https://github.com/echasnovski/mini.nvim
     end,
   },
+  {
+    'iamcco/markdown-preview.nvim',
+  },
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+      ensure_installed = { 'bash', 'c', 'diff', 'html', 'haskell', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -1020,5 +1070,5 @@ require('lazy').setup({
   },
 })
 
--- The line beneath this is called `modeline`. See `:help modeline`
+-- require('catppuccin').setup()
 -- vim: ts=2 sts=2 sw=2 et
